@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-=4dfy_!_gmd()zb(^7%o*c%%z92-5(_%7j-3a&k+rw%jf@g(78
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -123,4 +123,10 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 import os
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'todo/static')]
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+if os.environ.get('RENDER'):
+   import dj_database_url
+   DATABASES['default'] = dj_database_url.config(default='sqlite:///db.sqlite3')
